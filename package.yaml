@@ -1,0 +1,58 @@
+name:                lunch-picker
+version:             0.1.0.0
+github:              "bactroid/lunch-picker"
+license:             GPL-3.0
+author:              "Kate Haskell"
+maintainer:          "fuzzcat@bactroid.net"
+copyright:           "2018 Kate Haskell"
+
+extra-source-files:
+- README.md
+- ChangeLog.md
+
+# Metadata used when publishing your package
+synopsis:            Slack app that picks a restaurant to eat at
+category:            Web
+
+# To avoid duplicated efforts in documentation and dealing with the
+# complications of embedding Haddock markup inside cabal files, it is
+# common to point users to the README.md file.
+description:         Please see the README on GitHub at <https://github.com/bactroid/lunch-picker#readme>
+
+dependencies:
+- base >= 4.7 && < 5
+
+library:
+  source-dirs: src
+
+executables:
+  lunch-picker-exe:
+    main:                Main.hs
+    source-dirs:         app
+    ghc-options:
+    - -threaded
+    - -rtsopts
+    - -with-rtsopts=-N
+    other-modules:
+    - Picker
+    - Restaurant
+    - Db
+    dependencies:
+    - lunch-picker
+    - aeson
+    - serverless-haskell
+    - bytestring
+    - time (>= 1.9)
+    - text
+    - random
+
+tests:
+  lunch-picker-test:
+    main:                Spec.hs
+    source-dirs:         test
+    ghc-options:
+    - -threaded
+    - -rtsopts
+    - -with-rtsopts=-N
+    dependencies:
+    - lunch-picker

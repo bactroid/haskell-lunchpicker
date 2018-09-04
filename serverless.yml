@@ -1,0 +1,17 @@
+service: lunch-picker
+
+provider:
+  name: aws
+  runtime: nodejs8.10
+
+functions:
+  lunchpicker:
+    handler: lunch-picker.lunch-picker-exe
+    events:
+      - http:
+          path: test
+          method: any
+
+plugins:
+  - serverless-haskell
+  - serverless-offline

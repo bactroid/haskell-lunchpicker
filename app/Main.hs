@@ -23,12 +23,15 @@ data HttpResponse = HttpResponse
   , body       :: String
   } deriving (Generic, Eq, Show, Aeson.ToJSON, Aeson.FromJSON)
 
+errorMsg :: String
+errorMsg = "I'm having trouble. Maybe just go for coffee?"
+
 getTableName :: IO (Maybe String)
 getTableName = do
   tableVal <- filter ((== "LUNCH_TABLE") . fst) <$> getEnvironment
   if null tableVal
     then return Nothing
-    else return (Just . fst . head $ tableVal)
+    else return (Just . snd . head $ tableVal)
 
 
 stringify :: Aeson.ToJSON a => a -> String
@@ -39,6 +42,12 @@ main = lambdaMain handler
 
 handler :: Aeson.Value -> IO HttpResponse
 handler _ = do
-  restaurants <- getRestaurantsFromDb
-  restaurant <- getRandomRestaurant restaurants
-  pure (HttpResponse 200 (stringify (RespBody "in_channel" (name restaurant))))
+  tblVal <- getTableName
+  case tblVal of
+    (Just tbl) -> do
+      putStrLn tbl
+      restaurants <- getRestaurantsFromDb tbl
+      restaurant <- getRandomRestaurant restaurants
+      pure (HttpResponse 200 (stringify (RespBody "in_channel" (name restaurant))))
+    Nothing ->
+      pure (HttpResponse 200 (stringify (RespBody "in_channel" errorMsg)))

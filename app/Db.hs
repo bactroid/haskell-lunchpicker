@@ -14,15 +14,15 @@ import           Restaurant
 
 type DynamoRecord = M.HashMap T.Text AttributeValue
 
-getRestaurantsFromDb :: IO [Restaurant]
-getRestaurantsFromDb = do
-  dbRecs <- getDynamoDbData
+getRestaurantsFromDb :: String -> IO [Restaurant]
+getRestaurantsFromDb tbl = do
+  dbRecs <- getDynamoDbData tbl
   return $ mapMaybe dynamoRecordToRestaurant dbRecs
 
-getDynamoDbData :: IO [DynamoRecord]
-getDynamoDbData = do
+getDynamoDbData :: String -> IO [DynamoRecord]
+getDynamoDbData tbl = do
   env <- newEnv Discover
-  resp <- runResourceT . runAWST env . within NorthVirginia $ send (scan "lunch-picker-dev-restaurants")
+  resp <- runResourceT . runAWST env . within NorthVirginia $ send (scan (T.pack tbl))
   return $ resp ^. srsItems
 
 getName :: DynamoRecord -> Maybe String

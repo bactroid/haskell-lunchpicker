@@ -7,11 +7,11 @@ module Main where
 import           AWSLambda
 import qualified Data.Aeson                 as Aeson
 import qualified Data.ByteString.Lazy.Char8 as BC
--- import qualified Data.ByteString.Lazy.Internal as BS
 import           Db
 import           GHC.Generics
 import           Picker
 import           Restaurant
+import           System.Environment         (getEnvironment)
 
 data RespBody = RespBody
   { repsonse_type :: String
@@ -22,6 +22,14 @@ data HttpResponse = HttpResponse
   { statusCode :: Int
   , body       :: String
   } deriving (Generic, Eq, Show, Aeson.ToJSON, Aeson.FromJSON)
+
+getTableName :: IO (Maybe String)
+getTableName = do
+  tableVal <- filter ((== "LUNCH_TABLE") . fst) <$> getEnvironment
+  if null tableVal
+    then return Nothing
+    else return (Just . fst . head $ tableVal)
+
 
 stringify :: Aeson.ToJSON a => a -> String
 stringify = BC.unpack . Aeson.encode

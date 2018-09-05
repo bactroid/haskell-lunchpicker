@@ -3,15 +3,41 @@ service: lunch-picker
 provider:
   name: aws
   runtime: nodejs8.10
+  environment:
+    LUNCH_TABLE: ${self:service}-${self:provider.stage}-restaurants
+  iamRoleStatements:
+    - Effect: Allow
+      Action:
+        - dynamodb:DescribeTable
+        - dynamodb:Query
+        - dynamodb:Scan
+        - dynamodb:GetItem
+      Resource: "arn:aws:dynamodb:us-east-1:*:*"
 
 functions:
   lunchpicker:
     handler: lunch-picker.lunch-picker-exe
     events:
       - http:
-          path: test
+          path: lunch
           method: any
 
 plugins:
   - serverless-haskell
   - serverless-offline
+
+resources:
+  Resources:
+    restaurantTable:
+      Type: AWS::DynamoDB::Table
+      Properties:
+        TableName: ${self:provider.environment.LUNCH_TABLE}
+        AttributeDefinitions:
+          - AttributeName: restaurantId
+            AttributeType: S
+        KeySchema:
+          - AttributeName: restaurantId
+            KeyType: HASH
+        ProvisionedThroughput:
+          ReadCapacityUnits: 1
+          WriteCapacityUnits: 1

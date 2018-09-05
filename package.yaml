@@ -45,6 +45,11 @@ executables:
     - time (>= 1.9)
     - text
     - random
+    - amazonka
+    - amazonka-core
+    - amazonka-dynamodb
+    - lens
+    - unordered-containers
 
 tests:
   lunch-picker-test:

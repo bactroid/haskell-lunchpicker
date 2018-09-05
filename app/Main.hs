@@ -38,9 +38,7 @@ main :: IO ()
 main = lambdaMain handler
 
 handler :: Aeson.Value -> IO HttpResponse
-handler evt = do
-  putStrLn "This should go to logs"
-  print evt
+handler _ = do
   restaurants <- getRestaurantsFromDb
   restaurant <- getRandomRestaurant restaurants
   pure (HttpResponse 200 (stringify (RespBody "in_channel" (name restaurant))))

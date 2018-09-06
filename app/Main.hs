@@ -48,6 +48,6 @@ handler _ = do
       putStrLn tbl
       restaurants <- getRestaurantsFromDb tbl
       restaurant <- getRandomRestaurant restaurants
-      pure (HttpResponse 200 (stringify (RespBody "in_channel" (name restaurant))))
+      return (HttpResponse 200 (stringify (RespBody "in_channel" (name restaurant))))
     Nothing ->
-      pure (HttpResponse 200 (stringify (RespBody "in_channel" errorMsg)))
+      return (HttpResponse 200 (stringify (RespBody "in_channel" errorMsg)))

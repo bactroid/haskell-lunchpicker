@@ -18,7 +18,7 @@ import           Slack
 import           System.Environment         (getEnvironment)
 
 data RespBody = RespBody
-  { repsonse_type :: String
+  { response_type :: String
   , text          :: String
   } deriving (Generic, Eq, Show, Aeson.ToJSON, Aeson.FromJSON)
 

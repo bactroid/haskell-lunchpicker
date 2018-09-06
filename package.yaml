@@ -37,6 +37,7 @@ executables:
     - Picker
     - Restaurant
     - Db
+    - Slack
     dependencies:
     - lunch-picker
     - aeson
@@ -50,6 +51,7 @@ executables:
     - amazonka-dynamodb
     - lens
     - unordered-containers
+    - http-api-data
 
 tests:
   lunch-picker-test:

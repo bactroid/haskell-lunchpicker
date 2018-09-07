@@ -52,6 +52,7 @@ executables:
     - lens
     - unordered-containers
     - http-api-data
+    - containers
 
 tests:
   lunch-picker-test:

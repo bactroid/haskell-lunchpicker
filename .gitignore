@@ -1,5 +1,6 @@
 .stack-work/
 lunch-picker.cabal
+lunch-picker.js
 node_modules/
 lunch-picker-exe
 *~

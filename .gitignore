@@ -3,3 +3,4 @@ lunch-picker.cabal
 node_modules/
 lunch-picker-exe
 *~
+.serverless

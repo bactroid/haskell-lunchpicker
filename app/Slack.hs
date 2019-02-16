@@ -13,7 +13,7 @@ data SlackFormData = SlackFormData
   { token         :: String
   , team_id       :: String
   , team_domain   :: String
-  , enterprise_id :: String
+  , enterprise_id :: Maybe String
   , channel_id    :: String
   , channel_name  :: String
   , user_name     :: String

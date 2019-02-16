@@ -65,6 +65,7 @@ main = lambdaMain handler
 
 handler :: Aeson.Value -> IO HttpResponse
 handler evt = do
+  print (eventToUserList evt) -- Log parsed user list for debugging
   tblVal <- getTableName
   case tblVal of
     (Just tbl) -> do

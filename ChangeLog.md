@@ -2,6 +2,8 @@
 
 ## Pre-release changes
 
+* 2019-02-17: Updated package versions to address security issues.
+
 * 2019-02-16: Set `enterprise_id` as an optional part of the
   SlackFormData type. This was not being included in some events from
   Slack, causing a default empty user list to take over in

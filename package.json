@@ -12,8 +12,8 @@
   "author": "Kate Haskell <fuzzcat@bactroid.net> (http://bactroid.net)",
   "license": "GPL-3.0",
   "dependencies": {
-    "serverless": "^1.30.3",
+    "serverless": "^1.37.1",
     "serverless-haskell": "^0.6.7",
-    "serverless-offline": "^3.25.10"
+    "serverless-offline": "^3.33.0"
   }
 }
